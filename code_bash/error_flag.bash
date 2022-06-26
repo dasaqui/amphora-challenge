@@ -23,8 +23,7 @@ OUTPUT_FILE="error_flag.err"
     date >> $OUTPUT_FILE
     echo "  $0 called without arguments" >> $OUTPUT_FILE
     echo "" >> $OUTPUT_FILE
-    exit 1
-    )
+    ) && exit 1
 
 # First message so store (caller script)
 date >> $OUTPUT_FILE
@@ -34,15 +33,17 @@ echo "  called by '$1'" >> $OUTPUT_FILE
 [[ $# -le 1 ]] && $(
     echo "  unknown source_file" >> $OUTPUT_FILE
     echo "" >> $OUTPUT_FILE
-    exit 2
-    )
+    ) && exit 2
 
 # Logging second argument
 echo "  error while processing '$2'" >> $OUTPUT_FILE
 
 # check that there is a third argument, if not then logs it
 [[ $# -le 2 ]] && $(
-    echo "  unknown message" >> $OUTPUT_FILE
+    echo "  unknown error message" >> $OUTPUT_FILE
     echo "" >> $OUTPUT_FILE
-    exit 3
-    )
+    ) && exit 3
+
+# Logging second argument
+echo "  msg: $3" >> $OUTPUT_FILE
+echo "" >> $OUTPUT_FILE
