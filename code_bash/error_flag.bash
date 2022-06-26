@@ -29,10 +29,12 @@ OUTPUT_FILE="error_flag.err"
 # First message so store (caller script)
 date >> $OUTPUT_FILE
 echo "  called by '$1'" >> $OUTPUT_FILE
-echo "" >> $OUTPUT_FILE
 
 # check that there is a second argument, if not then logs it
-[[ $# -eq 1 ]] && $(
+[[ $# -le 1 ]] && $(
     echo "unknown source_file" >> $OUTPUT_FILE
     echo "" >> $OUTPUT_FILE
     )
+
+# Logging second argument
+echo "  error while processing '$2'" >> $OUTPUT_FILE
