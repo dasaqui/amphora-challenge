@@ -25,3 +25,8 @@ pathern="${path}.*${extension}"
         expected path: '$( echo ${path} |sed s/\\\\//g)'
         expected extension: $( echo ${extension} |sed s/\\\\//g) in lower case"
     ) && exit 5
+
+# Checking file existence, if doesn't exists log it
+[[ ! -f "$1" ]] && $(
+    bash code_bash/error_flag.bash "$0" "$1" "the file doesn't exists"
+    ) && exit 6
