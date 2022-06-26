@@ -12,4 +12,6 @@
 #   calling_script: is the script running while the error was detected
 #   source_file: is the file being processed while the error was detected
 #   message: is some aditional information useful to find the error
-
+#
+#
+# The output is a file named error_flag.err and is a text file
