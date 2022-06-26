@@ -21,12 +21,18 @@ OUTPUT_FILE="error_flag.err"
 # check that there is at least one parameter, if not stops the script
 [[ $# -eq 0 ]] && $( 
     date >> $OUTPUT_FILE
-    echo "$0 called without arguments" >> $OUTPUT_FILE
+    echo "  $0 called without arguments" >> $OUTPUT_FILE
     echo "" >> $OUTPUT_FILE
     exit 1
     )
 
-# First message so stor (caller script)
+# First message so store (caller script)
 date >> $OUTPUT_FILE
 echo "  called by '$1'" >> $OUTPUT_FILE
 echo "" >> $OUTPUT_FILE
+
+# check that there is a second argument, if not then logs it
+[[ $# -eq 1 ]] && $(
+    echo "unknown source_file" >> $OUTPUT_FILE
+    echo "" >> $OUTPUT_FILE
+    )
