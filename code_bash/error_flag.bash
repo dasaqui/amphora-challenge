@@ -15,3 +15,13 @@
 #
 #
 # The output is a file named error_flag.err and is a text file
+
+OUTPUT_FILE="error_flag.err"
+
+# check that there is at least one parameter, if not stops the script
+[[ $# -eq 0 ]] && $( 
+    date >> $OUTPUT_FILE
+    echo "$0 called without arguments" >> $OUTPUT_FILE
+    echo "" >> $OUTPUT_FILE
+    exit 1
+    )
