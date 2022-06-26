@@ -32,9 +32,17 @@ echo "  called by '$1'" >> $OUTPUT_FILE
 
 # check that there is a second argument, if not then logs it
 [[ $# -le 1 ]] && $(
-    echo "unknown source_file" >> $OUTPUT_FILE
+    echo "  unknown source_file" >> $OUTPUT_FILE
     echo "" >> $OUTPUT_FILE
+    exit 2
     )
 
 # Logging second argument
 echo "  error while processing '$2'" >> $OUTPUT_FILE
+
+# check that there is a third argument, if not then logs it
+[[ $# -le 2 ]] && $(
+    echo "  unknown message" >> $OUTPUT_FILE
+    echo "" >> $OUTPUT_FILE
+    exit 3
+    )
