@@ -12,21 +12,18 @@
 # script should call error_flag and exit with error 
 
 # Checking that there is only one argument and exit if not
-[[ $# -ne 1 ]] && $(
-    bash code_bash/error_flag.bash "$0" null "script called with '$#' arguments"
-    ) && exit 4
+[[ $# -ne 1 ]] && bash code_bash/error_flag.bash "$0" null "script called with '$#' arguments"
+[[ $# -ne 1 ]] && exit 4
 
 # Checking the path and extension of the source file
 path="data\/00 data ingestion\/"
 extension="\(csv\|vcf\|vcf\.gz\)"
 pathern="${path}.*${extension}"
-[[ -n $( echo "$1"| sed "s/${pathern}//g") ]] && $(
-    bash code_bash/error_flag.bash "$0" "$1" "pathern or extension error:
+[[ -n $( echo "$1"| sed "s/${pathern}//g") ]] && bash code_bash/error_flag.bash "$0" "$1" "pathern or extension error:
         expected path: '$( echo ${path} |sed s/\\\\//g)'
         expected extension: $( echo ${extension} |sed s/\\\\//g) in lower case"
-    ) && exit 5
+[[ -n $( echo "$1"| sed "s/${pathern}//g") ]] && exit 5
 
 # Checking file existence, if doesn't exists log it
-[[ ! -f "$1" ]] && $(
-    bash code_bash/error_flag.bash "$0" "$1" "the file doesn't exists"
-    ) && exit 6
+[[ ! -f "$1" ]] && bash code_bash/error_flag.bash "$0" "$1" "the file doesn't exists"
+[[ ! -f "$1" ]] && exit 6
