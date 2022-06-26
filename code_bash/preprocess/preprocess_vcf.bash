@@ -19,9 +19,17 @@ file_format=$( file "$1"| sed "s/.*(VCF).*/VCF/"| sed "s/.*(BGZF;.*/GZ/")
 
 # selecting the correct reader tool
 reader_command="null"
-[[ file_format = "GZ" ]] && reader_command="zcat \"$1\""
-[[ file_format = "VCF" ]] && reader_command="cat \"$1\""
+[[ $file_format = "GZ" ]] && reader_command="zcat"
+[[ $file_format = "VCF" ]] && reader_command="cat"
 
 # error managing
-[[ reader_command = "null" ]] && bash "code_bash/error_flag.bash" "$0" "$1" "Incorrect input file format (${file_format})"
-[[ reader_command = "null" ]] && exit 8
+[[ $reader_command == "null" ]] && bash "code_bash/error_flag.bash" "$0" "$1" "Incorrect input file format (${file_format})"
+[[ $reader_command == "null" ]] && exit 8
+
+# Data conversion pipeline (read->tagging->sort->untagging/update->compress)
+# the tagging proces is to keep metadata order
+echo ".$reader_command."
+${reader_command} "$1"|\
+awk -f "code_awk/metadata_tagging.awk" -- |\
+sort -n -t$'\t' -r |\
+head -n 50
