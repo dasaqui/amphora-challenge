@@ -28,4 +28,5 @@ OUTPUT_FILE="error_flag.err"
 
 # First message so stor (caller script)
 date >> $OUTPUT_FILE
-echo "  called by '${$1}'" >> $OUTPUT_FILE
+echo "  called by '$1'" >> $OUTPUT_FILE
+echo "" >> $OUTPUT_FILE
