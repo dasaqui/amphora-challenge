@@ -27,3 +27,13 @@ pathern="${path}.*${extension}"
 # Checking file existence, if doesn't exists log it
 [[ ! -f "$1" ]] && bash code_bash/error_flag.bash "$0" "$1" "the file doesn't exists"
 [[ ! -f "$1" ]] && exit 6
+
+# Processing tsv data
+format=$( echo "$1"| sed "s/.*\(csv\)/csv/g")
+[[ "$format" = "csv" ]] && echo "csv format found; this label should be replaced"
+[[ "$format" = "csv" ]] && exit 0
+
+# Processing vcf data
+format=$( echo "$1"| sed "s/.*\(vcf\|vcf\.gz\)/vcf/g")
+[[ "$format" = "vcf" ]] && echo "vcf format found; this label should be replaced"
+[[ "$format" = "vcf" ]] && exit 0
