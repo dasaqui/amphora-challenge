@@ -25,3 +25,7 @@ reader_command="null"
 # error managing
 [[ $reader_command == "null" ]] && bash "code_bash/error_flag.bash" "$0" "$1" "Incorrect input file format (${file_format})"
 [[ $reader_command == "null" ]] && exit 8
+
+# output filename not gziped
+input="$1"
+output=$( echo "$1"| sed "s/00 data ingestion/01 preprocessed data/g"| sed "s/\.gz//g")
