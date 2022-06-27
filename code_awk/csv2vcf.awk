@@ -20,10 +20,20 @@ BEGIN {
 # ignore the header of the input file
 /,REF,/ { next}
 
+# check for bialellic SNPs
+$4 == $5 {
+    REF=$3
+    ALT=$4
+}
 
+# check for trialellic SNPs
+$4 == $5 {
+    REF=$3
+    ALT=$4","$5
+}
 
 # split by chromosome
 {
-    chrom=$1
+    CHROM=$1
 
 }
