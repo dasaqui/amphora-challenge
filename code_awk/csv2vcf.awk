@@ -17,7 +17,7 @@ BEGIN {
         print "##contig=<ID="chromosome">" > output
     print "##INFO=<ID=AC,Number=A,Type=Integer,Description=\"Allele count in genotypes\">" > output
     print "##INFO=<ID=AN,Number=1,Type=Integer,Description=\"Total number of alleles in called genotypes\">" > output
-    print "##amphora-challenge: imported data from csv" > output
+    print "##amphora-challenge= imported data from csv" > output
     print "#CHROM	POS	ID	REF	ALT	QUAL	FILTER	INFO	FORMAT	"id_hash > output
 }
 
@@ -26,12 +26,14 @@ NR == 1 { next}
 
 # check for bialellic SNPs
 $4 == $5 {
+    biallel = 1
     REF = $3
     ALT = $4
 }
 
 # check for trialellic SNPs
 $4 != $5 {
+    biallel = 0
     REF = $3
     ALT = $4","$5
 }
@@ -47,12 +49,32 @@ $4 != $5 {
     # I will supose that each filter was passed
     # I will supose that the genotype is phased
     # With my current knowledge and only one file i can't 
-    #    reconstruct the original genome to determine the
-    #    correct SNP for each row
+    #    reconstruct the original database of SNPs, but I
+    #    can recover that information at the merge stage.
     FILTER = "PASS"
-    gsub( /\"/, "", $6)
-    gsub( /\"/, "", $7)
-    AC = $6 + $7
+    $6 = substr($6,2,1)
+    $7 = substr($7,1,1)
+    
+    # Dealing with the posibility of have a second alternative allel
+    if (biallel){
+        # I there is a second allel not detected
+        if ($6 > 1)
+            print "ERROR_ON_NEXT_LINE "CHROM" "POS > output
+
+        # Allel counter
+        AC = $6 + $7
+        }
+    else{
+        # Auxiliar counter for each allel
+        ALT[0] = 0
+        ALT[1] = 0
+        ALT[2] = 0
+        ALT[$6] = ALT[$6] + 1
+        ALT[$7] = ALT[$7] + 1
+        # Final string cor each allel
+        AC = ALT[1]";"ALT[2]
+    }
+
 
     # Data sorting
     $10 = $6"|"$7       # Hash

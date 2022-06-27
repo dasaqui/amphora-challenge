@@ -21,8 +21,14 @@ id_hash=$( echo "$1"| sed "s/.*\///g"| sed "s/\.csv//g")
 # date to be stored in the metadata
 meta=$(date +%Y%M%d)
 
+#########################
+# This line is only to correct a detected error on chomosome 2 position 236072830
+#    the second alternative allel should be G not TT
+correction1="s/2;236072830,GT,TT,TT/2;236072830,GT,TT,G/"
+
 # output data splitting by chromosome
 cat "${input}" |\
+sed "${correction1}" |\
 sed "s/;/,/g" |\
 awk -v meta="${meta}" -v output="${output}" -v id_hash="${id_hash}" -f "code_awk/csv2vcf.awk"
 

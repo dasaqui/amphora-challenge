@@ -31,7 +31,7 @@ input="$1"
 output=$( echo "$1"| sed "s/00 data ingestion/01 preprocessed data/g"| sed "s/\.gz//g")
 
 # message to store as a part of the metadata
-meta="##amphora_challenge: file sorted by chromosome and position on $(date)"
+meta="##amphora_challenge= file sorted by chromosome and position on $(date)"
 
 # pipeline to copy all the headers (replacing output file)
 ${reader_command} "$input" |\
