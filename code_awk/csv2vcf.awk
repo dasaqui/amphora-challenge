@@ -18,7 +18,7 @@ BEGIN {
 }
 
 # ignore the header of the input file
-/,REF,/ { next}
+NR == 1 { next}
 
 # check for bialellic SNPs
 $4 == $5 {
