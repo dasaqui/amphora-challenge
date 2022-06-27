@@ -4,6 +4,10 @@
 # chromosomes to be sorted later
 
 BEGIN {
+    # Configuring all the separators
+    FS = ","
+    OFS = "\t"
+
     # Printing all the metadata 
     print "##fileformat=VCFv4.1" > output
     print "##filedate="meta > output
@@ -22,18 +26,46 @@ NR == 1 { next}
 
 # check for bialellic SNPs
 $4 == $5 {
-    REF=$3
-    ALT=$4
+    REF = $3
+    ALT = $4
 }
 
 # check for trialellic SNPs
-$4 == $5 {
-    REF=$3
-    ALT=$4","$5
+$4 != $5 {
+    REF = $3
+    ALT = $4","$5
 }
 
 # split by chromosome
 {
-    CHROM=$1
+    CHROM = $1
+    POS = $2
+    ID = $3
+    QUAL = "." 
 
+    # facts
+    # I will supose that each filter was passed
+    # I will supose that the genotype is phased
+    # With my current knowledge and only one file i can't 
+    #    reconstruct the original genome to determine the
+    #    correct SNP for each row
+    FILTER = "PASS"
+    gsub( /\"/, "", $6)
+    gsub( /\"/, "", $7)
+    AC = $6 + $7
+
+    # Data sorting
+    $10 = $6"|"$7       # Hash
+    $9 = "GT"           # FORMAT
+    $8 = "AC="AC";AN=2" # INFO
+    $7 = "PASS"         # FILTER
+    $6 = "."            # QUAL
+    $5 = ALT            # ALT
+    $4 = REF            # REF
+    $3 = "."            # ID
+    $2 = POS            # POS
+    $1 = CHROM          # CHROM
+
+    # Print current row splitting the output by chromosome
+    print $0 > output"_"CHROM
 }
