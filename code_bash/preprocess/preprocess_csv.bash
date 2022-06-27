@@ -25,3 +25,19 @@ meta=$(date +%Y%M%d)
 cat "${input}" |\
 sed "s/;/,/g" |\
 awk -v meta="${meta}" -v output="${output}" -v id_hash="${id_hash}" -f "code_awk/csv2vcf.awk"
+
+# Data merging and sorting
+for chromosome in {1..23}
+do
+    # Check if there is a file for this chromosome
+    [[ -f "${output}_${chromosome}" ]] || continue
+
+    # this pipeline will search for each chromosome in order and sort by position
+    cat "${output}_${chromosome}" |\
+    sort -n -k 2 >> "$output"
+
+    # removes the temporal file
+    rm "${output}_${chromosome}"
+done
+
+gzip -f "${output}"
