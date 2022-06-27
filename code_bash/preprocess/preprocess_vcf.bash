@@ -32,5 +32,18 @@ output=$( echo "$1"| sed "s/00 data ingestion/01 preprocessed data/g"| sed "s/\.
 
 # pipeline to copy all the headers (replacing output file)
 ${reader_command} "$input" |\
-head -n 100 |\
-awk "/^#/ {print \$0}" > "$output"
+awk -F "\t" -v output="$output" "/^#/ {print \$0 > output; next}; NF > 1 {print \$0 > output\"_\"\$1}"
+
+# Sort by chromosome and position for each chromosome
+for chromosome in {1..23}
+do
+    # Check if there is a file for this chromosome
+    [[ -f "${output}_${chromosome}" ]] || continue
+
+    # this pipeline will search for each chromosome in order and sort by position
+    cat "${output}_${chromosome}" |\
+    sort -n -k 2 >> "$output"
+
+    # removes the temporal file
+    rm "${output}_${chromosome}"
+done
