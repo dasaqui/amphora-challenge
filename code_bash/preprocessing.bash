@@ -16,7 +16,7 @@
 [[ $# -ne 1 ]] && exit 4
 
 # Checking the path and extension of the source file
-path="data\/00 data ingestion\/"
+path="data\/00_data_ingestion\/"
 extension="\(csv\|vcf\|vcf\.gz\)"
 pathern="${path}.*${extension}"
 [[ -n $( echo "$1"| sed "s/${pathern}//g") ]] && bash code_bash/error_flag.bash "$0" "$1" "pathern or extension error:

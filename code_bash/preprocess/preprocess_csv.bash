@@ -15,7 +15,7 @@
 
 # output filename not gziped
 input="$1"
-output=$( echo "$1"| sed "s/00 data ingestion/01 preprocessed data/g"| sed "s/\.csv/\.csv\.vcf/g")
+output=$( echo "$1"| sed "s/00_data_ingestion/01_preprocessed_data/g"| sed "s/\.csv/\.csv\.vcf/g")
 id_hash=$( echo "$1"| sed "s/.*\///g"| sed "s/\.csv//g")
 
 # date to be stored in the metadata
