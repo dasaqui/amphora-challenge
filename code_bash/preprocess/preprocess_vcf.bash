@@ -30,6 +30,9 @@ reader_command="null"
 input="$1"
 output=$( echo "$1"| sed "s/00 data ingestion/01 preprocessed data/g"| sed "s/\.gz//g")
 
+# message to store as a part of the metadata
+meta="##amphora_challenge: file sorted by chromosome and position on $(date)"
+
 # pipeline to copy all the headers (replacing output file)
 ${reader_command} "$input" |\
 awk -F "\t" -v output="$output" "/^#/ {print \$0 > output; next}; NF > 1 {print \$0 > output\"_\"\$1}"
@@ -47,3 +50,5 @@ do
     # removes the temporal file
     rm "${output}_${chromosome}"
 done
+
+gzip -f "${output}"
