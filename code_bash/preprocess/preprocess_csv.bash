@@ -16,3 +16,12 @@
 # output filename not gziped
 input="$1"
 output=$( echo "$1"| sed "s/00 data ingestion/01 preprocessed data/g"| sed "s/\.csv/\.csv\.vcf/g")
+id_hash=$( echo "$1"| sed "s/.*\///g"| sed "s/\.csv//g")
+
+# date to be stored in the metadata
+meta=$(date +%Y%M%d)
+
+# output data splitting by chromosome
+cat "${input}" |\
+sed "s/;/,/g" |\
+awk -v meta="${meta}" -v output="${output}" -v id_hash="${id_hash}" -f "code_awk/csv2vcf.awk"
