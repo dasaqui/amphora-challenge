@@ -29,3 +29,8 @@ reader_command="null"
 # output filename not gziped
 input="$1"
 output=$( echo "$1"| sed "s/00 data ingestion/01 preprocessed data/g"| sed "s/\.gz//g")
+
+# pipeline to copy all the headers (replacing output file)
+${reader_command} "$input" |\
+head -n 100 |\
+awk "/^#/ {print \$0}" > "$output"
