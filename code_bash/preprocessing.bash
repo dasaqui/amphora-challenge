@@ -30,10 +30,10 @@ pathern="${path}.*${extension}"
 
 # Processing tsv data
 format=$( echo "$1"| sed "s/.*\(csv\)/csv/g")
-[[ "$format" = "csv" ]] && echo "csv format found; this label should be replaced"
+[[ "$format" = "csv" ]] && bash "code_bash/preprocess/preprocess_csv.bash" "$1"
 [[ "$format" = "csv" ]] && exit 0
 
 # Processing vcf data
 format=$( echo "$1"| sed "s/.*\(vcf\|vcf\.gz\)/vcf/g")
-[[ "$format" = "vcf" ]] && echo "vcf format found; this label should be replaced"
+[[ "$format" = "vcf" ]] && bash "code_bash/preprocess/preprocess_vcf.bash" "$1"
 [[ "$format" = "vcf" ]] && exit 0
