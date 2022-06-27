@@ -7,7 +7,8 @@ BEGIN {
     # Configuring all the separators
     FS = ","
     OFS = "\t"
-
+}
+END {
     # Printing all the metadata 
     print "##fileformat=VCFv4.1" > output
     print "##filedate="meta > output
@@ -66,13 +67,13 @@ $4 != $5 {
         }
     else{
         # Auxiliar counter for each allel
-        ALT[0] = 0
-        ALT[1] = 0
-        ALT[2] = 0
-        ALT[$6] = ALT[$6] + 1
-        ALT[$7] = ALT[$7] + 1
+        ALT_COUNTER[0] = 0
+        ALT_COUNTER[1] = 0
+        ALT_COUNTER[2] = 0
+        ALT_COUNTER[$6] = ALT_COUNTER[$6] + 1
+        ALT_COUNTER[$7] = ALT_COUNTER[$7] + 1
         # Final string cor each allel
-        AC = ALT[1]";"ALT[2]
+        AC = ALT_COUNTER[1]","ALT_COUNTER[2]
     }
 
 
