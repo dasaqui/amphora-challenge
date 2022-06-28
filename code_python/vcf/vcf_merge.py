@@ -8,8 +8,6 @@
 # because there is no data relative to QUAL this code will not
 # take care of this column leaving a copy of any of the files.
 
-from ast import If
-
 import pandas as pd
 
 from .merge_mapping import *
