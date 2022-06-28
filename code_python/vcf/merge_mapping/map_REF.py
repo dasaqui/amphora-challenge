@@ -1,3 +1,8 @@
+# This function is designed to deal with the merge of REF
+# columns, and must be run after merge the column ID
+#
+#
+
 def map_REF( row, sources):
     # Extract required data
     left = row['REF']

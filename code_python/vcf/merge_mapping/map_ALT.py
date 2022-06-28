@@ -1,3 +1,10 @@
+# This function is designed to deal with the merge of ALT
+# columns, and must be run after merge the column REF
+#
+# This tool can deal with some known details taking in consideration
+# the reported data on ncbi changing each invalid register ALT data
+# with "-" to be removed later.
+
 def map_ALT( row, sources):
     # Extract required data
     left = row['ALT']

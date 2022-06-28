@@ -1,3 +1,8 @@
+# This function is designed to deal with the merge of ID
+# columns, and must be run before all the other mappings
+#
+#
+
 def map_ID( row, sources):
     # Extract required data
     left = row['ID']

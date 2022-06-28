@@ -1,3 +1,8 @@
+# This function is designed to deal with the merge of FILTER
+# columns, and must be run after merge the column QUAL
+#
+#
+
 def map_FILTER( row, sources):
     # Extract required data
     left = row['FILTER']

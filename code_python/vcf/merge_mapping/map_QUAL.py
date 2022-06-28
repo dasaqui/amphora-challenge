@@ -1,3 +1,8 @@
+# This function is designed to deal with the merge of QUAL
+# columns, and must be run after merge the column ALT
+#
+#
+
 def map_QUAL( row, sources):
     # Extract required data
     left = row['QUAL']

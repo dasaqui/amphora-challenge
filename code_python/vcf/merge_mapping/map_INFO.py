@@ -1,3 +1,10 @@
+# This function is designed to deal with the merge of INFO
+# columns, and must be run after merge the column FILTER
+#
+# this tool can deal with up to three allels and is pending
+# a correction if both register report diferent number of
+# allels.
+
 def map_INFO( row, sources):
     # exit if is an invalid row
     if( row['ALT_new'] == "-"): return
@@ -26,6 +33,9 @@ def map_INFO( row, sources):
     return f"AC={AC};AN={AN}"
         
 
+# This function parses the INFO register into number related with
+# AC and AN data, taking in consideration that AC can store up to
+# two different values
 def info_parser( INFO: str):
     # Spliting the data to get the values
     AC_AN = INFO.split( ";")
