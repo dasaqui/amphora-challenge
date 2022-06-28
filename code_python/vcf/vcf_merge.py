@@ -41,7 +41,7 @@ def vcf_merge( vcf_left: pd.core.frame.DataFrame, vcf_right: pd.core.frame.DataF
         del vcf[col+"_new"]
         del vcf[col+"_R"]
     
-    # Deal with failed rows
+    # Deal with failed rows (marked as "-")
     for col in columns:
         vcf.drop( vcf[ vcf[col] == "-"].index, inplace=True)
     
