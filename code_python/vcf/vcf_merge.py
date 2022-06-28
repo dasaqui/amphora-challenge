@@ -150,7 +150,7 @@ def map_INFO( row, sources):
         # there are three allels
         AC = str( left[0][0]+right[0][0])
         AC += "," + str( left[0][1]+right[0][1])
-        AN = str( left[1]+right[1])
+        AN = str( left[1][0]+right[1][0])
     else:
         # Something wrong happened
         msg = f"Error mergin INFO: {left}!={right}\n"
