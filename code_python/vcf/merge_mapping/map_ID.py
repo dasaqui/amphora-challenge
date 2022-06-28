@@ -3,6 +3,9 @@
 #
 #
 
+from operator import le
+
+
 def map_ID( row, sources):
     # Extract required data
     left = row['ID']
@@ -15,8 +18,12 @@ def map_ID( row, sources):
     if( right == '.'): return left
     if( left == '.'): return right
 
-    # If both columns are not empty but are diferent we
-    # shold take an action to correct it
+    # If both columns are not empty merge all SNPs
+    SNPs = set(left.split(";"))|set(right.split(";"))
+    if all( [ "rs" ==  SNP[0:2] for SNP in SNPs]): return ";".join( SNPs)
+
+    # If you are here, ther is an invalid SNP that must be
+    # checked with caution
     msg = f"Error mergin ID: {left}!={right}\n"
     msg += f"    Involved chromosome/position is {row['CHROM']}/{row['POS']}\n"
     msg += f"     cols:{sources}"
