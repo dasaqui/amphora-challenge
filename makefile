@@ -3,7 +3,8 @@ foo:
 clean_preprocess: clean preprocess
 
 clean:
-	rm data/01*/*.gz
+	rm data/01*/*.gz || echo ok
+	rm test || echo ok
 
 preprocess:
 	bash code_bash/mass_preprocess.bash
@@ -14,4 +15,4 @@ data/01_preprocessed_data/%.csv.vcf.gz: data/00_data_ingestion/%.csv
 
 data/01_preprocessed_data/%.vcf.gz: data/00_data_ingestion/%.vcf.gz
 	bash code_bash/preprocessing.bash $<
-	#echo $(echo $@; vcf-validator $@) >> test
+	#vcf-validator $@ >> test
