@@ -7,8 +7,7 @@ BEGIN {
     # Configuring all the separators
     FS = ","
     OFS = "\t"
-}
-END {
+
     # Printing all the metadata 
     print "##fileformat=VCFv4.1" > output
     print "##filedate="meta > output
