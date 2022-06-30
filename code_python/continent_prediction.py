@@ -44,4 +44,23 @@ start=time()
 encoded_train = one_hot_encoder( vcf_train["ALT"].to_numpy(dtype=str), vcf_train.iloc[:,9:].to_numpy(dtype=str))
 encoded_validate = one_hot_encoder( vcf_validate["ALT"].to_numpy(dtype=str), vcf_validate.iloc[:,9:].to_numpy(dtype=str))
 print(f"elapsed time: {time()-start}")
+
+# Implementing PCA to reduce the dimensionality of this problem
+pca = PCA(500)
+encoded_train = pca.fit_transform( encoded_train.transpose())
+encoded_validate = pca.transform( encoded_validate.transpose())
+
+# Implementing KMeans to make class inference
+kmeans = KMeans(5)
+kmeans.fit( encoded_train)
+validate = kmeans.predict( encoded_validate)
+
+# class accuracy and data visualization
+fig = plt.figure()
+labels["prediction"] = validate
+
+plot_by( fig, 1, encoded_validate, labels, "Superpopulation code")
+plot_by( fig, 2, encoded_validate, labels, "prediction")
+plt.show()
+
 print("")
