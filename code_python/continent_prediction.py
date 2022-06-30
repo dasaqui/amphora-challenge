@@ -19,19 +19,24 @@ from vcf import vcf_reader
 vcf_train = vcf_reader( c.output_path + "merged_file.vcf.gz")
 
 # Make a vcf copy
-vcf_validate = vcf_train.iloc[:,0:9]
+vcf_validate = pd.DataFrame.copy( vcf_train.iloc[:,0:9], deep=True)
 
 # Read the classes for labeled data and sort it by label
 labels = pd.read_csv( c.labels_path, delimiter="\t")
-labels = labels.sort_values( "Superpopulation code")
+labels = labels.sort_values( "Superpopulation code").reset_index(drop=True)
+index_to_remove = []
 
 # Move the validation data
-for UUID in labels["UUID"]:
+for id,UUID in enumerate( labels["UUID"]):
     try:
         vcf_validate[UUID] = vcf_train[UUID]
         del vcf_train[UUID]
     except:
-        print( f"register hash {UUID} was not found")
+        index_to_remove.append(id)
+        print( f"id:{id}, register hash {UUID} was not found")
+
+# Remove unused data UUIDs
+labels = labels.drop( index_to_remove).reset_index( drop=True)
 
 # Transform allels data into one hot encoding
 print( "encoding data:")
