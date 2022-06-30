@@ -3,12 +3,17 @@
 # This code it to read the merged vcf, split it into training and validation datasets
 # and make predictions about the classes/continents for each resgister
 
-from vcf import vcf_reader
-import constants as c
+from time import time
+
 import numpy as np
 import pandas as pd
+from matplotlib import pyplot as plt
+from sklearn.cluster import KMeans
+from sklearn.decomposition import PCA
+
+import constants as c
 from helpers import *
-from time import time
+from vcf import vcf_reader
 
 # Read the merged vcf
 vcf_train = vcf_reader( c.output_path + "merged_file.vcf.gz")
