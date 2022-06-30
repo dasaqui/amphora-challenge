@@ -11,7 +11,7 @@ from matplotlib import pyplot as plt
 from sklearn.cluster import KMeans
 from sklearn.decomposition import PCA
 
-import constants as c
+import my_constants as c
 from helpers import *
 from vcf import vcf_reader
 

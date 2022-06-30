@@ -2,7 +2,7 @@
 
 # This code is to read all the vcf files and merge them in a new vcf
 
-import constants as c
+import my_constants as c
 from vcf.vcf_parallel_merge import *
 from glob import glob
 import time

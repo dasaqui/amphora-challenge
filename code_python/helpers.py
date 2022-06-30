@@ -4,7 +4,7 @@
 
 from numba import njit
 import numba
-import constants as c
+import my_constants as c
 import numpy as np
 
 # one_hot_encoder is a code to encode allel data using something similar

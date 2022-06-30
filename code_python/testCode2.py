@@ -1,5 +1,5 @@
 from vcf.vcf_parallel_merge import *
-import constants as c
+import my_constants as c
 from time import time
 from glob import glob
 
