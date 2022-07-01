@@ -34,13 +34,13 @@ make test
 
 This command will check for all the required commands but will not install it, only will inform if there is a problem with the required command. I decided to keep this approach to be transparent in the list of packages required.
 
-Most of the required packages are part of the standard Ubuntu installation with the exception of pip (recommended but not required), python3, and file, which are not part of the docker's Ubuntu image but can be installed with
+Most of the required packages are part of the standard Ubuntu installation except for pip (recommended but not required), python3, and file, which are not part of the docker's Ubuntu image but can be installed with
 
 ```bash
 apt install pip python3 file
 ```
 
-In terms of libraries required for python, they are matplotlib, numba, pandas, and sklearn. This libraries can be installed whit the command
+In terms of libraries required for python, they are matplotlib, numba, pandas, and sklearn. These libraries can be installed whit the command
 
 ```bash
 pip install sklearn pandas matplotlib numba
