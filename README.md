@@ -16,6 +16,8 @@ To solve this project we can use any programming language but is suggested to us
 
 - Python is the recommended tool to solve this project, it was not my first option to solve the complete project because it has efficiency problems when there are involved buckles. On the other hand, the most important tools designed for machine learning are programmed to work with python, so, after the preprocessing the merge process, data clustering, and the evaluation were developed in this language.
 
+- Makefile is not a programming language, but here are coded all the instructions needed to process the data with a single command.
+
 ## Installation
 
 The next lines will be updated when needed  
