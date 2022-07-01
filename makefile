@@ -6,8 +6,12 @@ clean:
 	rm data/01*/*.gz || echo ok
 	rm test || echo ok
 
+merge: data/01_preprocessed_data/*gz
+	python3 code_python files_merge.py
+
 preprocess:
 	bash code_bash/mass_preprocess.bash
+	@ echo "preprocess completed, now all converted files must be in data/01_preprocessed_data/"
 
 data/01_preprocessed_data/%.csv.vcf.gz: data/00_data_ingestion/%.csv
 	bash code_bash/preprocessing.bash $<

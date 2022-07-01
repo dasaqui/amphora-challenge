@@ -5,7 +5,7 @@
 import my_constants as c
 from vcf.vcf_parallel_merge import *
 from glob import glob
-import time
+from time import time
 
 # Read the complete list of vcf files
 input_list = glob("data/01*/*.gz")
