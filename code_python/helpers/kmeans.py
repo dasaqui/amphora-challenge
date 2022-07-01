@@ -7,6 +7,7 @@ import numba
 import my_constants as c
 import numpy as np
 from sklearn.cluster import KMeans
+from .score import macro_F1_score
 
 def multiple_kmeans( tests, k, train, validate, labels):
     # Prepare the output data
