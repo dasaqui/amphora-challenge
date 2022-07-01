@@ -8,7 +8,7 @@ clean:
 
 merge: data/01_preprocessed_data/*gz
 	echo "the merge process has begun, it can take some time to complete"
-	env python3 code_python files_merge.py
+	env python3 code_python/files_merge.py
 
 preprocess:
 	bash code_bash/mass_preprocess.bash
@@ -32,4 +32,6 @@ test:
 	@bash code_bash/command_test.bash python3 Python3
 	@bash code_bash/command_test.bash sed sed
 	@bash code_bash/command_test.bash sort sort
-	@echo "At this point all the required programs are installed and ready to use"
+	@echo "At this point all the required programs are installed"
+	@echo "testing required python libraries..."
+	@env python3 code_python/libraries.py
