@@ -57,8 +57,8 @@ avg,std = multiple_kmeans(5, 8, encoded_train, encoded_validate, labels)
 print( f"This method shows an average f1 score of {avg} and variance of {std}")
 
 # Implementing KMeans to make class inference
-if all( [os.path.exists( f) for f in c.model_files]):
-    labels, unlabeled, confusion_matrix, labels_dict = kmeans_eval( 8, encoded_train, encoded_validate, labels)
+if os.path.exists( c.pretrained_model):
+    labels, unlabeled, confusion_matrix, labels_dict = kmeans_eval( 8, encoded_train, encoded_validate, labels, pretrained=c.pretrained_model)
 else:
     labels, unlabeled, confusion_matrix, labels_dict = kmeans_eval( 8, encoded_train, encoded_validate, labels)
 

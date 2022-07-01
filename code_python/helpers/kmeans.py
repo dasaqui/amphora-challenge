@@ -2,12 +2,17 @@
 
 # This file is to keep ordered aditional codes
 
-from numba import njit
-import numba
+import os.path
+import pickle
+
 import my_constants as c
+import numba
 import numpy as np
+from numba import njit
 from sklearn.cluster import KMeans
+
 from .score import macro_F1_score
+
 
 def multiple_kmeans( tests, k, train, validate, labels):
     # Prepare the output data
@@ -25,11 +30,16 @@ def multiple_kmeans( tests, k, train, validate, labels):
 
     return avg,std
 
-def kmeans_eval( k, train, validate, labels):
-    # Implementing KMeans to make class inference
-    kmeans = KMeans(k)
-    train = kmeans.fit_predict( train)
-    validate = kmeans.predict( validate)
+def kmeans_eval( k, train, validate, labels, pretrained=False):
+    # Model trainning and predictions
+    if pretrained:
+        kmeans = pickle.load( open( pretrained, "rb"))
+        train = kmeans.predict( train)
+        validate = kmeans.predict( validate)
+    else:
+        kmeans = KMeans(k)
+        train = kmeans.fit_predict( train)
+        validate = kmeans.predict( validate)
 
     # Labeling the output data
     labels["prediction"] = validate
@@ -58,5 +68,9 @@ def kmeans_eval( k, train, validate, labels):
 
         # Update current bin
         confusion_matrix[ real, pred] += 1
+
+    # Save model
+    if not os.path.exists( c.pretrained_model):
+        pickle.dump( kmeans, open( c.pretrained_model, "wb"))
 
     return labels, unlabeled, confusion_matrix, labels_dict
