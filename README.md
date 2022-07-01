@@ -20,13 +20,19 @@ To solve this project we can use any programming language but is suggested to us
 
 ## Installation
 
-The next lines will be updated when needed  
-
-Use the package manager [pip](https://pip.pypa.io/en/stable/) to install foobar.
+To run this code make command should be installed on the computer, this command can be installed whit the following code
 
 ```bash
-pip install foobar
+sudo apt install make
 ```
+
+After this command has been installed all the remaining pre-requisites can be checked with the command
+
+```bash
+make test
+```
+
+This command will check for all the required commands but will not install it, only will inform if there is a problem with the required command.
 
 ## Usage
 
