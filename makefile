@@ -8,7 +8,7 @@ clean:
 
 merge: data/01_preprocessed_data/*gz
 	echo "the merge process has begun, it can take some time to complete"
-	python3 code_python files_merge.py
+	env python3 code_python files_merge.py
 
 preprocess:
 	bash code_bash/mass_preprocess.bash
