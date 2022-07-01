@@ -3,6 +3,7 @@
 # This code it to read the merged vcf, split it into training and validation datasets
 # and make predictions about the classes/continents for each resgister
 
+import os.path
 from time import time
 
 import numpy as np
@@ -51,22 +52,26 @@ pca = PCA(500)
 encoded_train = pca.fit_transform( encoded_train.transpose())
 encoded_validate = pca.transform( encoded_validate.transpose())
 
-# Kmeans evaluation
-multiple_kmeans(5, 8, encoded_train, encoded_validate, labels)
+# Kmeans evaluation over multiple repetitions
+avg,std = multiple_kmeans(5, 8, encoded_train, encoded_validate, labels)
+print( f"This method shows an average f1 score of {avg} and variance of {std}")
 
 # Implementing KMeans to make class inference
-kmeans = KMeans(8)
-train = kmeans.fit_predict( encoded_train)
-validate = kmeans.predict( encoded_validate)
+if all( [os.path.exists( f) for f in c.model_files]):
+    labels, unlabeled, confusion_matrix, labels_dict = kmeans_eval( 8, encoded_train, encoded_validate, labels)
+else:
+    labels, unlabeled, confusion_matrix, labels_dict = kmeans_eval( 8, encoded_train, encoded_validate, labels)
+
+# Model evaluation
+macro_F1, F1 = macro_F1_score( confusion_matrix)
 
 # class accuracy and data visualization
 fig = plt.figure()
-labels["prediction"] = validate
-unlabeled = {"prediction": train}
 
 plot_by( fig, (2,2,1), encoded_validate, labels, "Superpopulation code", "Labeled data")
 plot_by( fig, (2,2,2), encoded_validate, labels, "prediction", "Prediction on labeled data")
 plot_by( fig, (2,2,3), encoded_train, unlabeled, "prediction", "Prediction on unlabeled data")
+plot_F1( fig, (2,2,4), macro_F1, F1, labels_dict)
 plt.show()
 
 print("")

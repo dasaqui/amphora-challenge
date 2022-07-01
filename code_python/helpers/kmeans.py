@@ -15,7 +15,7 @@ def multiple_kmeans( tests, k, train, validate, labels):
 
     # evaluate multiple times
     for i in range( tests):
-        l,u,confusion = kmeans_eval( k, train, validate, labels)
+        l,u,confusion,d = kmeans_eval( k, train, validate, labels)
         mF1,F1 = macro_F1_score( confusion)
         F1_hist[i] = mF1
     
@@ -59,4 +59,4 @@ def kmeans_eval( k, train, validate, labels):
         # Update current bin
         confusion_matrix[ real, pred] += 1
 
-    return labels, unlabeled, confusion_matrix
+    return labels, unlabeled, confusion_matrix, labels_dict
