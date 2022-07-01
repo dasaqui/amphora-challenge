@@ -21,6 +21,7 @@ test:
 	@command -v bash && echo "Bash installed correctly\n" || echo "Bash is not installed and we need it to continue"
 	@command -v bash >/dev/null
 	@bash code_bash/command_test.bash awk awk
+	@bash code_bash/command_test.bash file "'file' command"
 	@bash code_bash/command_test.bash ln ln
 	@bash code_bash/command_test.bash python3 Python3
 	@bash code_bash/command_test.bash sed sed
