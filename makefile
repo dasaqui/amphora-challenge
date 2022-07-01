@@ -6,7 +6,9 @@ clean:
 	rm data/01*/*.gz || echo ok
 	rm test || echo ok
 
-train: data/02_merged_data/merged_file.vcf.gz
+run: evaluate
+
+evaluate: data/02_merged_data/merged_file.vcf.gz
 	@echo ""
 	@echo "   The train process has begun..."
 	@env python3 code_python/continent_prediction.py

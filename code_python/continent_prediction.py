@@ -72,6 +72,18 @@ plot_by( fig, (2,2,1), encoded_validate, labels, "Superpopulation code", "Labele
 plot_by( fig, (2,2,2), encoded_validate, labels, "prediction", "Prediction on labeled data")
 plot_by( fig, (2,2,3), encoded_train, unlabeled, "prediction", "Prediction on unlabeled data")
 plot_F1( fig, (2,2,4), macro_F1, F1, labels_dict)
-plt.show()
+try: plt.show()
+except: pass
+
+# save the graphs
+print("Saving images")
+plot_by( plt.figure(), (1,1,1), encoded_validate, labels, "Superpopulation code", "Labeled data")
+plt.savefig( c.output_dir+"01_labeled_data.png")
+plot_by( plt.figure(), (1,1,1), encoded_validate, labels, "prediction", "Prediction on labeled data")
+plt.savefig( c.output_dir+"02_prediction_on_labeled_data.png")
+plot_by( plt.figure(), (1,1,1), encoded_train, unlabeled, "prediction", "Prediction on unlabeled data")
+plt.savefig( c.output_dir+"03_prediction_on_unlabeled_data.png")
+plot_F1( plt.figure(), (1,1,1), macro_F1, F1, labels_dict)
+plt.savefig( c.output_dir+"04_F1_score_by_group.png")
 
 print("")
