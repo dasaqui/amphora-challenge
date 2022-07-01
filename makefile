@@ -6,12 +6,20 @@ clean:
 	rm data/01*/*.gz || echo ok
 	rm test || echo ok
 
+train: data/02_merged_data/merged_file.vcf.gz
+	@echo ""
+	@echo "   The train process has begun..."
+	@env python3 code_python/continent_prediction.py
+
 merge: data/01_preprocessed_data/*gz
-	echo "the merge process has begun, it can take some time to complete"
-	env python3 code_python/files_merge.py
+	@echo ""
+	@echo "   The merge process has begun, it can take some time to complete"
+	@env python3 code_python/files_merge.py
 
 preprocess:
-	bash code_bash/mass_preprocess.bash
+	@echo ""
+	@echo "   Preprocessing the input files"
+	@bash code_bash/mass_preprocess.bash
 	@ echo "preprocess completed, now all converted files must be in data/01_preprocessed_data/"
 
 data/01_preprocessed_data/%.csv.vcf.gz: data/00_data_ingestion/%.csv
