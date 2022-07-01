@@ -6,12 +6,8 @@
 # metadata for this file
 
 import gzip
-import io
-import os
-from grpc import Compression
 
 import pandas as pd
-from datetime import datetime
 
 def vcf_writer( vcf: pd.core.frame.DataFrame, path: str):
     with gzip.open( path, 'w') as f:
