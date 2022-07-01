@@ -32,6 +32,7 @@ test:
 	@bash code_bash/command_test.bash python3 Python3
 	@bash code_bash/command_test.bash sed sed
 	@bash code_bash/command_test.bash sort sort
-	@echo "At this point all the required programs are installed"
+	@echo "At this point all the required programs are installed, now we are"
 	@echo "testing required python libraries..."
+	@echo ""
 	@env python3 code_python/libraries.py
