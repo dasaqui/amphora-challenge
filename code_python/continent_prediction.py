@@ -10,6 +10,7 @@ import pandas as pd
 from matplotlib import pyplot as plt
 from sklearn.cluster import KMeans
 from sklearn.decomposition import PCA
+from sklearn.metrics import confusion_matrix
 
 import my_constants as c
 from helpers import *
@@ -50,17 +51,22 @@ pca = PCA(500)
 encoded_train = pca.fit_transform( encoded_train.transpose())
 encoded_validate = pca.transform( encoded_validate.transpose())
 
+# Kmeans evaluation
+multiple_kmeans(5, 8, encoded_train, encoded_validate, labels)
+
 # Implementing KMeans to make class inference
-kmeans = KMeans(5)
-kmeans.fit( encoded_train)
+kmeans = KMeans(8)
+train = kmeans.fit_predict( encoded_train)
 validate = kmeans.predict( encoded_validate)
 
 # class accuracy and data visualization
 fig = plt.figure()
 labels["prediction"] = validate
+unlabeled = {"prediction": train}
 
-plot_by( fig, 1, encoded_validate, labels, "Superpopulation code")
-plot_by( fig, 2, encoded_validate, labels, "prediction")
+plot_by( fig, (2,2,1), encoded_validate, labels, "Superpopulation code", "Labeled data")
+plot_by( fig, (2,2,2), encoded_validate, labels, "prediction", "Prediction on labeled data")
+plot_by( fig, (2,2,3), encoded_train, unlabeled, "prediction", "Prediction on unlabeled data")
 plt.show()
 
 print("")
