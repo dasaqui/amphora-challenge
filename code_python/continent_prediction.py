@@ -33,6 +33,7 @@ for id,UUID in enumerate( labels["UUID"]):
     try:
         vcf_validate[UUID] = vcf_train[UUID]
         del vcf_train[UUID]
+        vcf_validate = vcf_validate.copy()
     except:
         index_to_remove.append(id)
         print( f"id:{id}, register hash {UUID} was not found")
