@@ -1,6 +1,7 @@
 data/*
 *__pycache__
 model/out/*
+model/preprocess
 
 # Created by https://www.toptal.com/developers/gitignore/api/emacs,linux,visualstudiocode,python
 # Edit at https://www.toptal.com/developers/gitignore?templates=emacs,linux,visualstudiocode,python

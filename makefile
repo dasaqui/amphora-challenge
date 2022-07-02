@@ -13,16 +13,22 @@ evaluate: data/02_merged_data/merged_file.vcf.gz
 	@echo "   The train process has begun..."
 	@env python3 code_python/continent_prediction.py
 
-merge: data/01_preprocessed_data/*gz
+merge: data/02_merged_data/merged_file.vcf.gz
+
+data/02_merged_data/merged_file.vcf.gz: data/01_preprocessed_data/*gz
 	@echo ""
 	@echo "   The merge process has begun, it can take some time to complete"
 	@env python3 code_python/files_merge.py
 
-preprocess:
+preprocess: model/preprocess
+
+model/preprocess: 
 	@echo ""
 	@echo "   Preprocessing the input files"
 	@bash code_bash/mass_preprocess.bash
 	@ echo "preprocess completed, now all converted files must be in data/01_preprocessed_data/"
+	@echo "this file is for workflow control, you can ignore it" > model/preprocess
+	@date >> model/preprocess
 
 data/01_preprocessed_data/%.csv.vcf.gz: data/00_data_ingestion/%.csv
 	bash code_bash/preprocessing.bash $<
