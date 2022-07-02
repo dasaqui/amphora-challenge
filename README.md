@@ -81,7 +81,7 @@ The output of this process is stored on [model/reported/merged_file.vcf.gz](mode
 
 Previously to this task, a cleaning and data conversion were needed but this process is described in [model/README.md file](model/README.md).
 
-An example of this merged process can be seen in the following text that shows the first lines of a vcf file whitout metadata.
+An example of this merged process can be seen in the following text that shows the first lines of a vcf file without metadata.
 
 ```text
 #CHROM  POS     ID      REF     ALT     QUAL    FILTER  INFO    FORMAT  0259e6c7-4f95-525e-8bf8-d1ae5acf4755    5f877ffb-c15e-5fc5-b6fd-6872a3071078
@@ -112,19 +112,19 @@ Using KMeans I found that Europe and America are populations very near genetical
 
 ![](model/reported/02_prediction_on_labeled_data.png)
 
-![](model/reported/02_prediction_on_unlabeled_data.png)
+![](model/reported/03_prediction_on_unlabeled_data.png)
 
 In these images, we can see that America can be described as two populations, one may be related to native ethnical groups, and the second related to Europe colonization. Also, Africa can be described as three groups but this assumption requires more data to be accepted.
 
 ## Task 3
 
-The third task consists of the validation of this results and the quantification of the error.
+The third task consists of the validation of these results and the quantification of the error.
 
 There are a lot of metrics that can quantify this result, one among them that I considered good for this task is the F1 score, this metric has a good balance between precision and recall. Precision can be understood as the measurement of how much of the predicted data is true of this predicted class, while recall refers to the number of predictions for the real class that is correctly predicted.
 
 Macro F1 score uses the F1 score for each class and gets an average to measure the global precision/recall of the classification model. Using this approach I measured the results of my clustering code from five to nine clusters getting the best precision in eight clusters. To measure this precision I repeated the clustering process 100 times and averaged the results getting an average F1 score of 0.9872 and a variance of 1.4e-4. The lowest variance was get for five clusters with a score of 0.9299 and a variance of 6.79e-6
 
-![](model/reported/03_F1_score_by_group.png)
+![](model/reported/04_F1_score_by_group.png)
 
 ## Aditional findings
 
