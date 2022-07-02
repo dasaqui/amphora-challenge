@@ -3,6 +3,7 @@ foo:
 clean_preprocess: clean preprocess
 
 clean:
+	rm model/preprocess  || echo ok
 	rm data/01*/*.gz || echo ok
 	rm test || echo ok
 
@@ -15,14 +16,14 @@ evaluate: data/02_merged_data/merged_file.vcf.gz
 
 merge: data/02_merged_data/merged_file.vcf.gz
 
-data/02_merged_data/merged_file.vcf.gz: data/01_preprocessed_data/*gz
+data/02_merged_data/merged_file.vcf.gz: model/preprocess data/01_preprocessed_data/*gz
 	@echo ""
 	@echo "   The merge process has begun, it can take some time to complete"
 	@env python3 code_python/files_merge.py
 
 preprocess: model/preprocess
 
-model/preprocess: 
+model/preprocess: data/00_data_ingestion/*
 	@echo ""
 	@echo "   Preprocessing the input files"
 	@bash code_bash/mass_preprocess.bash
