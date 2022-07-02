@@ -1,8 +1,7 @@
 #!/usr/bin/env python
 
-# This file is to keep ordered aditional codes
+# Here resides the codes needed to plot and generate all the required graphs.
 
-from numba import njit
 import my_constants as c
 from matplotlib import pyplot as plt
 

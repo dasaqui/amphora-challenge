@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-# This file is to keep ordered aditional codes
+# The methods described here corresponds to F1 score
 
 from numba import njit
 import my_constants as c

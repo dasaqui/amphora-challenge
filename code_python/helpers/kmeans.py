@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
-# This file is to keep ordered aditional codes
+# This code is to deal with KMeans clustering an to evaluate the process between multiple
+# executions of kmeans.
 
 import os.path
 import pickle
