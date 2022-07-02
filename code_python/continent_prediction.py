@@ -33,6 +33,7 @@ for id,UUID in enumerate( labels["UUID"]):
         del vcf_train[UUID]
         vcf_validate = vcf_validate.copy()
     except:
+        # the current UUID doesnt exist in the input data
         index_to_remove.append(id)
         print( f"id:{id}, register hash {UUID} was not found")
 
@@ -50,10 +51,6 @@ print(f"elapsed time: {time()-start}")
 pca = PCA(500)
 encoded_train = pca.fit_transform( encoded_train.transpose())
 encoded_validate = pca.transform( encoded_validate.transpose())
-
-# Kmeans evaluation over multiple repetitions
-avg,std = multiple_kmeans(5, 8, encoded_train, encoded_validate, labels)
-print( f"This method shows an average f1 score of {avg} and variance of {std}")
 
 # Implementing KMeans to make class inference
 if os.path.exists( c.pretrained_model):
@@ -84,5 +81,9 @@ plot_by( plt.figure(), (1,1,1), encoded_train, unlabeled, "prediction", "Predict
 plt.savefig( c.output_dir+"03_prediction_on_unlabeled_data.png")
 plot_F1( plt.figure(), (1,1,1), macro_F1, F1, labels_dict)
 plt.savefig( c.output_dir+"04_F1_score_by_group.png")
+
+# Kmeans evaluation over multiple repetitions
+avg,std = multiple_kmeans(5, 8, encoded_train, encoded_validate, labels)
+print( f"This method shows an average f1 score of {avg} and variance of {std}")
 
 print("")
