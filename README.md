@@ -61,6 +61,15 @@ make run
 
 this command will take care of the complete workflow which is specified in [model/README.md file](model/README.md). The first run will end showing an error because at the beginning the folder 'data/01_preprocessed_data' was empty, but the next execution will run without problems showing the final classification at the end of the process.
 
+## Pipeline
+
+A more detailed overview of the pipeline can be read in [model/README.md file](model/README.md).
+
+A general map of the workflow is described in the next image, which describes how the input data moves around each folder using different scripts to receive, clean, transform, merge and process the data. The output of this process is stored in the folder "model/out/".
+
+![](model/reported/pipeline.png)
+
+
 ## Results
 
 The complete description of the results are described in [model/README.md file](model/README.md)
