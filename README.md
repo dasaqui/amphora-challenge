@@ -50,20 +50,20 @@ After this point, you should have all the required packages to run this program.
 
 ## Usage
 
-The next lines will be updated when needed 
+To run the program you should copy the complete dataset given for this project in the 'data/00_data_ingestion' folder, this dataset doesn't need a particular file structure, only copy all the files in the folder without the use of sub-folders. Now you will be able to use the command
 
-```python
-import foobar
-
-# returns 'words'
-foobar.pluralize('word')
-
-# returns 'geese'
-foobar.pluralize('goose')
-
-# returns 'phenomenon'
-foobar.singularize('phenomena')
+```bash
+make run
+# the first execution may fail
+make run
+# but only the first and never again
 ```
+
+this command will take care of the complete workflow which is specified in [model/README.md file](model/README.md). The first run will end showing an error because at the beginning the folder 'data/01_preprocessed_data' was empty, but the next execution will run without problems showing the final classification at the end of the process.
+
+## Results
+
+The complete description of the results are described in [model/README.md file](model/README.md)
 
 ## Contributing
 Comments are welcome. This GitHub will not be updated after the coding test.
