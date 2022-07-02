@@ -21,7 +21,7 @@ def vcf_merge( input_list: list, output_file: str):
     while len( input_list) > 2:
         # Split the list in pairs and arguments for each worker
         input_list = [input_list[ i:min(i+2,len(input_list))] for i in range( 0, len(input_list), 2)]
-        arguments = [ (elements, path, counter>1) for elements in input_list]
+        arguments = [ (elements, path, counter>2) for elements in input_list]
 
         # call the workers
         input_list = pool.starmap( merge_worker, arguments)
