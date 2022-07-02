@@ -2,9 +2,9 @@
 
 # This file is to keep ordered aditional codes
 
-from numba import njit
 import my_constants as c
 import numpy as np
+
 
 # one_hot_encoder is a code to encode allel data using something similar
 # to the one hot encoding. In this version if both copies of the genome 

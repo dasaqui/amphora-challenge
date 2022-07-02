@@ -9,6 +9,7 @@ import gzip
 
 import pandas as pd
 
+
 def vcf_writer( vcf: pd.core.frame.DataFrame, path: str):
     with gzip.open( path, 'w') as f:
         # writing headers

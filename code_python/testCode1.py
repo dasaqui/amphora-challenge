@@ -1,6 +1,7 @@
-from vcf import *
-from time import time
 from glob import glob
+from time import time
+
+from vcf import *
 
 # Test for non parallel code
 

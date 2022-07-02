@@ -2,10 +2,11 @@
 
 # This code is to read all the vcf files and merge them in a new vcf
 
-import my_constants as c
-from vcf.vcf_parallel_merge import *
 from glob import glob
 from time import time
+
+import my_constants as c
+from vcf.vcf_parallel_merge import *
 
 # Read the complete list of vcf files
 input_list = glob("data/01*/*.gz")

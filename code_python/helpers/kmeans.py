@@ -6,9 +6,7 @@ import os.path
 import pickle
 
 import my_constants as c
-import numba
 import numpy as np
-from numba import njit
 from sklearn.cluster import KMeans
 
 from .score import macro_F1_score

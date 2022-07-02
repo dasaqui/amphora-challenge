@@ -4,7 +4,6 @@
 
 from numba import njit
 import my_constants as c
-import numpy as np
 
 def macro_F1_score( confusion_matrix):
     # Prepare all the elements to estimate precision

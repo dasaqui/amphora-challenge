@@ -1,7 +1,8 @@
-from vcf.vcf_parallel_merge import *
-import my_constants as c
-from time import time
 from glob import glob
+from time import time
+
+import my_constants as c
+from vcf.vcf_parallel_merge import *
 
 # Test for parallel code
 

@@ -3,10 +3,7 @@
 # This file is to keep ordered aditional codes
 
 from numba import njit
-import numba
 import my_constants as c
-import numpy as np
-from sklearn.cluster import KMeans
 from matplotlib import pyplot as plt
 
 # plot_by is a helper code to plot given data grouped by a condition in a
