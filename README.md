@@ -100,7 +100,13 @@ An example of this merged process can be seen in the following text that shows t
 
 This task consists of data clustering and visualization. According to the challenge, there are five super populations which are Africa, America, East Asia, Europe, and South Asia.
 
-To solve this task I decided to make a principal components analysis which consists of the search for the directions which produce the biggest variance between the data. In this process, I keep the first three principal components to visualize the data (as the next image shows) and the first 500 to make the cluster prediction.
+In this task, each sample can be seen as a point in a high-dimensional space, and each pair of genotypes for each position can be seen as a coordinate in the corresponding axis. To use these coordinates I decided to convert each of them into a new one or two-dimensional value using a modified one_hot_encoder.
+
+The proposed encoder uses the reference allele as the origin of the coordinates if both copies of the genome are equal the resulting value is like the usual one_hot_encoding, but if the copies show different alleles the resulting encoded data is the average between both possible encoding, this behavior is to represent that 50% of the code corresponds to each allele. So, for example '0|0' is encoded as [0] (for the biallelic sample) while '0|1' is encoded as [0.5] and '1|1' as [1] (a complete description is shown on [encoder.py](code_python/helpers/encoder.py)).
+
+Using the method proposed previously each sample can be converted into a high-dimensional vector of values between zero and one, and each sample should be mapped to a cluster using an adequate method
+
+To solve the task and reduce the dimensions of the problem I decided to make a principal components analysis which consists of the search for the directions which produce the biggest variance between the data. In this process, I keep the first three principal components to visualize the data (as the next image shows) and the first 500 to make the cluster prediction.
 
 ![](model/reported/01_labeled_data.png)
 
@@ -116,7 +122,7 @@ Using KMeans I found that Europe and America are populations very near genetical
 
 In these images, we can see that America can be described as two populations, one may be related to native ethnical groups, and the second related to Europe colonization. Also, Africa can be described as three groups but this assumption requires more data to be accepted.
 
-## Task 3
+## Third task
 
 The third task consists of the validation of these results and the quantification of the error.
 
