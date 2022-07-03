@@ -67,9 +67,9 @@ else:
 
 # Implementing KMeans to make class inference
 if os.path.exists( c.pretrained_model):
-    labels, unlabeled, confusion_matrix, labels_dict = kmeans_eval( 8, encoded_train, encoded_validate, labels, pretrained=c.pretrained_model)
+    labels, unlabeled, confusion_matrix, labels_dict = kmeans_eval( c.number_of_clusters, encoded_train, encoded_validate, labels, pretrained=c.pretrained_model)
 else:
-    labels, unlabeled, confusion_matrix, labels_dict = kmeans_eval( 8, encoded_train, encoded_validate, labels)
+    labels, unlabeled, confusion_matrix, labels_dict = kmeans_eval( c.number_of_clusters, encoded_train, encoded_validate, labels)
 
 # Model evaluation
 macro_F1, F1 = macro_F1_score( confusion_matrix)
@@ -96,7 +96,7 @@ plot_F1( plt.figure(), (1,1,1), macro_F1, F1, labels_dict)
 plt.savefig( c.output_dir+"04_F1_score_by_group.png")
 
 # Kmeans evaluation over multiple repetitions
-avg,std = multiple_kmeans(5, 8, encoded_train, encoded_validate, labels)
+avg,std = multiple_kmeans(5, c.number_of_clusters, encoded_train, encoded_validate, labels)
 print( f"This method shows an average f1 score of {avg} and variance of {std}")
 
 print("")

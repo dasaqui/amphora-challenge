@@ -13,3 +13,5 @@ output_dir = "model/out/"
 pretrained_pca = "model/pca.pkl"
 pretrained_model = "model/kmeans.pkl"
 predictor_map = "model/mapping.pkl"
+
+number_of_clusters = 7
