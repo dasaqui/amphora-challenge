@@ -1,33 +1,44 @@
+# This is the default behaviour
 foo:
+	@echo "called without arguments"
+	@echo "   to make model trainning run make train"
+	@echo "   to make prediction run make predict"
 
+# Section for aliases
 clean_preprocess: clean preprocess
-
-clean:
-	rm model/preprocess  || echo ok
-	rm data/01*/*.gz || echo ok
-	rm test || echo ok
 
 run: evaluate
 
+merge: data/02_merged_data/merged_file.vcf.gz
+
+preprocess: model/preprocess
+
+predict: 
+
+# Command to remove output intermediate files
+clean:
+	rm model/preprocess_predict  || echo ok
+	rm model/preprocess  || echo ok
+	rm data/01*/*.gz || echo ok
+	rm data/04*/*.gz || echo ok
+	rm test || echo ok
+
+# trainning pipeline
 evaluate: data/02_merged_data/merged_file.vcf.gz
 	@echo ""
 	@echo "   The train process has begun..."
 	@env python3 code_python/continent_prediction.py
-
-merge: data/02_merged_data/merged_file.vcf.gz
 
 data/02_merged_data/merged_file.vcf.gz: model/preprocess data/01_preprocessed_data/*gz
 	@echo ""
 	@echo "   The merge process has begun, it can take some time to complete"
 	@env python3 code_python/files_merge.py
 
-preprocess: model/preprocess
-
 model/preprocess: data/00_data_ingestion/*
 	@echo ""
 	@echo "   Preprocessing the input files"
 	@bash code_bash/mass_preprocess.bash
-	@ echo "preprocess completed, now all converted files must be in data/01_preprocessed_data/"
+	@echo "preprocess completed, now all converted files must be in data/01_preprocessed_data/"
 	@echo "this file is for workflow control, you can ignore it" > model/preprocess
 	@date >> model/preprocess
 
@@ -39,6 +50,29 @@ data/01_preprocessed_data/%.vcf.gz: data/00_data_ingestion/%.vcf.gz
 	bash code_bash/preprocessing.bash $<
 	#vcf-validator $@ >> test
 
+# Command for sample.vcf.gz creation
+data/04_prediction_preprocessed/sample.vcf.gz: data/02_merged_data/merged_file.vcf.gz
+	bash code_bash/create_sample_vcf.bash
+
+# Commands for data prediction
+
+model/preprocess_predict: data/03_data_to_predict/*
+	@echo ""
+	@echo "   Preprocessing the input prediction files"
+	@bash code_bash/mass_preprocess.bash predict
+	@echo "preprocess completed, now all converted files must be in data/04_prediction_preprocessed/"
+	@echo "this file is for workflow control, you can ignore it" > model/preprocess_predict
+	@date >> model/preprocess_predict
+
+data/04_prediction_preprocessed/%.csv.vcf.gz: data/03_data_to_predict/%.csv
+	bash code_bash/preprocessing.bash $< predict
+	#vcf-validator $@ >> test
+
+data/04_prediction_preprocessed/%.vcf.gz: data/03_data_to_predict/%.vcf.gz
+	bash code_bash/preprocessing.bash $< predict
+	#vcf-validator $@ >> test
+
+# Command to test required dependencies
 test:
 	@command -v bash && echo "Bash installed correctly\n" || echo "Bash is not installed and we need it to continue"
 	@command -v bash >/dev/null
