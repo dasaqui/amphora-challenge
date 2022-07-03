@@ -27,7 +27,7 @@ clean:
 evaluate: data/02_merged_data/merged_file.vcf.gz
 	@echo ""
 	@echo "   The train process has begun..."
-	@env python3 code_python/continent_prediction.py
+	@env python3 code_python/continent_train_predict.py
 
 data/02_merged_data/merged_file.vcf.gz: model/preprocess data/01_preprocessed_data/*gz
 	@echo ""
