@@ -2,6 +2,8 @@
 
 # This code it to read the merged vcf, split it into training and validation datasets
 # and make predictions about the classes/continents for each resgister
+#
+# Also this code should evaluate the final results
 
 import os.path
 import pickle
