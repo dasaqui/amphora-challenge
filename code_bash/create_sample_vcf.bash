@@ -5,7 +5,7 @@
 # be used at the prediction process
 
 INPUT_FILE="data/02_merged_data/merged_file.vcf.gz"
-OUTPUT_FILE="data/04_prediction_preprocessed/sample.vcf"
+OUTPUT_FILE="data/04_prediction_preprocessed/00000000-sample.vcf"
 
 AWK_CODE="code_awk/vcf2sample.awk"
 

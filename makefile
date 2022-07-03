@@ -51,10 +51,14 @@ data/01_preprocessed_data/%.vcf.gz: data/00_data_ingestion/%.vcf.gz
 	#vcf-validator $@ >> test
 
 # Command for sample.vcf.gz creation
-data/04_prediction_preprocessed/sample.vcf.gz: data/02_merged_data/merged_file.vcf.gz
+data/04_prediction_preprocessed/00000000-sample.vcf.gz: data/02_merged_data/merged_file.vcf.gz
 	bash code_bash/create_sample_vcf.bash
 
 # Commands for data prediction
+data/05_merged_to_predict/merged_file.vcf.gz: data/04_prediction_preprocessed/00000000-sample.vcf.gz model/preprocess_predict data/04_prediction_preprocessed/*gz
+	@echo ""
+	@echo "   The merge process has begun, it can take some time to complete"
+	@env python3 code_python/files_merge.py predict
 
 model/preprocess_predict: data/03_data_to_predict/*
 	@echo ""
