@@ -29,7 +29,7 @@ def plot_by( fig, index, pca_data, labels, group_by, title=""):
         ax.scatter( xs, ys, zs)
 
     # Labels and legends
-    ax.legend( [k for k in groups])
+    ax.legend( [k[:3] for k in groups])
     ax.set_xlabel("first component")
     ax.set_ylabel("second component")
     ax.set_zlabel("third component")

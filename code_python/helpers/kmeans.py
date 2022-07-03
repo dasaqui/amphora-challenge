@@ -47,26 +47,34 @@ def kmeans_eval( k, train, validate, labels, pretrained=False):
     # get a dictionary of labels
     labels_dict = { l:i for i,l in enumerate( set( labels[ "Superpopulation code"]))}
 
-    # Map the prediction to the real class
-    prediction_map = {i:0 for i in set( labels[ "prediction"])}
-    for key in prediction_map:
+    # Map the prediction to the real class 
+    # prediction_map_keys:   predicted class -> real class number
+    # prediction_map_code:   predicted class -> real class code UNDERSCORE predicted class key
+    prediction_map_keys = {i:0 for i in set( labels[ "prediction"])}
+    prediction_map_code = {i:"???_"+str(i) for i in range( k)}
+    for key in prediction_map_keys:
         # set of real classes in current predicted class
-        s = labels["Superpopulation code"][ labels[ labels[ "prediction"] == key].index]
-        s = s.to_list()
+        population_code = labels["Superpopulation code"][ labels[ labels[ "prediction"] == key].index]
+        population_code = population_code.to_list()
 
         # Detect the most frequent code and use it to map the class
-        s = max(set(s), key = s.count)
-        prediction_map[ key] = labels_dict[ s]
+        population_code = max(set(population_code), key = population_code.count)
+        prediction_map_keys[ key] = labels_dict[ population_code]
+        prediction_map_code[ key] = population_code + "_" + str( key)
 
-    # Make a confusion matrix
+    # Make a confusion matrix over labeled data
     confusion_matrix = np.zeros( (len( labels_dict), len( labels_dict)))
     for i in range( labels.shape[0]):
         # Get the bin for current element on labels
         real = labels_dict[ labels.iloc[i,1]]
-        pred = prediction_map[ labels.iloc[i,2]]
+        pred = prediction_map_keys[ labels.iloc[i,2]]
 
         # Update current bin
         confusion_matrix[ real, pred] += 1
+
+    # assing new classes for predicted data
+    labels["prediction"] = np.array( [ prediction_map_code[key] for key in labels["prediction"]])
+    unlabeled["prediction"] = np.array( [ prediction_map_code[key] for key in unlabeled["prediction"]])
 
     # Save model
     if not os.path.exists( c.pretrained_model):
