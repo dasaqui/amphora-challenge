@@ -8,14 +8,27 @@
 # The output vcf file will be sorted in dictionary order by chromosome
 # and position, and will be logged this change in the metadata
 
-# Checking that there is only one argument and exit if not
-[[ $# -ne 1 ]] && bash code_bash/error_flag.bash "$0" null "script called with '$#' arguments"
-[[ $# -ne 1 ]] && bash "code_bash/error_flag.bash" "$0" "null" "Called without arguments"
-[[ $# -ne 1 ]] && exit 7
+# Checking that there is one or two argument and exit if not
+[[ $# -lt 1 ]] && bash code_bash/error_flag.bash "$0" null "script called with '$#' arguments"
+[[ $# -lt 1 ]] && bash "code_bash/error_flag.bash" "$0" "null" "Called without arguments"
+[[ $# -lt 1 ]] && exit 7
+[[ $# -gt 2 ]] && bash code_bash/error_flag.bash "$0" null "script called with '$#' arguments"
+[[ $# -gt 2 ]] && bash "code_bash/error_flag.bash" "$0" "null" "Called without arguments"
+[[ $# -gt 2 ]] && exit 7
+
+# Change paths if there is a second argument
+if [[ "$2" == "predict" ]]
+then
+   INPUT_FOLDER="03_data_to_predict"
+   OUTPUT_FOLDER="04_prediction_preprocessed"
+else
+   INPUT_FOLDER="00_data_ingestion"
+   OUTPUT_FOLDER="01_preprocessed_data"
+fi
 
 # output filename not gziped
 input="$1"
-output=$( echo "$1"| sed "s/00_data_ingestion/01_preprocessed_data/g"| sed "s/\.csv/\.csv\.vcf/g")
+output=$( echo "$1"| sed "s/${INPUT_FOLDER}/${OUTPUT_FOLDER}/g"| sed "s/\.csv/\.csv\.vcf/g")
 id_hash=$( echo "$1"| sed "s/.*\///g"| sed "s/\.csv//g")
 
 # date to be stored in the metadata

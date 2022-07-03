@@ -10,9 +10,22 @@
 # and position, and will be updated this change in the metadata
 
 # Checking that there is only one argument and exit if not
-[[ $# -ne 1 ]] && bash code_bash/error_flag.bash "$0" null "script called with '$#' arguments"
-[[ $# -ne 1 ]] && bash "code_bash/error_flag.bash" "$0" "null" "Called without arguments"
-[[ $# -ne 1 ]] && exit 7
+[[ $# -lt 1 ]] && bash code_bash/error_flag.bash "$0" null "script called with '$#' arguments"
+[[ $# -lt 1 ]] && bash "code_bash/error_flag.bash" "$0" "null" "Called without arguments"
+[[ $# -lt 1 ]] && exit 7
+[[ $# -gt 2 ]] && bash code_bash/error_flag.bash "$0" null "script called with '$#' arguments"
+[[ $# -gt 2 ]] && bash "code_bash/error_flag.bash" "$0" "null" "Called without arguments"
+[[ $# -gt 2 ]] && exit 7
+
+# Change paths if there is a second argument
+if [[ "$2" == "predict" ]]
+then
+   INPUT_FOLDER="03_data_to_predict"
+   OUTPUT_FOLDER="04_prediction_preprocessed"
+else
+   INPUT_FOLDER="00_data_ingestion"
+   OUTPUT_FOLDER="01_preprocessed_data"
+fi
 
 # input format verification
 file_format=$( file "$1"| sed "s/.*(VCF).*/VCF/"| sed "s/.*(BGZF;.*/GZ/")
@@ -28,7 +41,7 @@ reader_command="null"
 
 # output filename not gziped
 input="$1"
-output=$( echo "$1"| sed "s/00_data_ingestion/01_preprocessed_data/g"| sed "s/\.gz//g")
+output=$( echo "$1"| sed "s/${INPUT_FOLDER}/${OUTPUT_FOLDER}/g"| sed "s/\.gz//g")
 
 # message to store as a part of the metadata
 meta="##amphora_challenge= file sorted by chromosome and position on $(date)"
