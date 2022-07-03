@@ -4,6 +4,7 @@
 # and make predictions about the classes/continents for each resgister
 
 import os.path
+import pickle
 from time import time
 
 import pandas as pd
@@ -48,9 +49,19 @@ encoded_validate = one_hot_encoder( vcf_validate["ALT"].to_numpy(dtype=str), vcf
 print(f"elapsed time: {time()-start}")
 
 # Implementing PCA to reduce the dimensionality of this problem
-pca = PCA(500)
-encoded_train = pca.fit_transform( encoded_train.transpose())
-encoded_validate = pca.transform( encoded_validate.transpose())
+if os.path.exists( c.pretrained_pca):
+    # If a pretrained model exists
+    pca = pickle.load( open( c.pretrained_pca, "rb"))
+    encoded_train = pca.transform( encoded_train.transpose())
+    encoded_validate = pca.transform( encoded_validate.transpose())
+else:
+    # If a pretrained model doesn't exists
+    pca = PCA(500)
+    encoded_train = pca.fit_transform( encoded_train.transpose())
+    encoded_validate = pca.transform( encoded_validate.transpose())
+
+    # Save the model
+    pickle.dump( pca, open( c.pretrained_pca, "wb"))
 
 # Implementing KMeans to make class inference
 if os.path.exists( c.pretrained_model):

@@ -7,4 +7,5 @@ labels_path = "data/coordination.txt"
 one_hot_error = "to much allels present, check your code"
 
 output_dir = "model/out/"
+pretrained_pca = "model/pca.pkl"
 pretrained_model = "model/kmeans.pkl"
