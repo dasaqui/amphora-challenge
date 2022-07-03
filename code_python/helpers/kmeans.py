@@ -80,4 +80,7 @@ def kmeans_eval( k, train, validate, labels, pretrained=False):
     if not os.path.exists( c.pretrained_model):
         pickle.dump( kmeans, open( c.pretrained_model, "wb"))
 
+    # Save the prediction_map_code
+    pickle.dump( prediction_map_code, open( c.predictor_map, "wb"))
+
     return labels, unlabeled, confusion_matrix, labels_dict
