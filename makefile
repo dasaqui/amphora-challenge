@@ -42,6 +42,8 @@ model/preprocess: data/00_data_ingestion/*
 	@echo "   Preprocessing the input files"
 	@bash code_bash/mass_preprocess.bash
 	@echo "preprocess completed, now all converted files must be in data/01_preprocessed_data/"
+	@echo "if the next step fails try to run the same command again"
+	@echo ""
 	@echo "this file is for workflow control, you can ignore it" > model/preprocess
 	@date >> model/preprocess
 
@@ -71,6 +73,8 @@ model/preprocess_predict: data/03_data_to_predict/*
 	@echo "   Preprocessing the input prediction files"
 	@bash code_bash/mass_preprocess.bash predict
 	@echo "preprocess completed, now all converted files must be in data/04_prediction_preprocessed/"
+	@echo "if the next step fails try to run the same command again"
+	@echo ""
 	@echo "this file is for workflow control, you can ignore it" > model/preprocess_predict
 	@date >> model/preprocess_predict
 
