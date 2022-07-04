@@ -53,9 +53,9 @@ After this point, you should have all the required packages to run this program.
 
 After cloning the git repository the code is almost ready to run. To change the training data set you can add files to the 'data/00_data_ingestion/' folder, also to make new predictions you can add files in the 'data/00_data_to_predict/' folder.
 
-The first run can be slow because it is generating all the intermediate files.
+The first run can be slow because it is generating all the intermediate files, the slowest part is the file merging that takes arroun 3 seconds for each merge and will use all the available cores to reduce the execution time using parallel processing.
 
-The commands may fail the first execution with an error "No rule to make target 'data/01_preprocessed_data/*gz'" this is because some intermediate files are being created, running the command again will correct the error because the intermediate files now has been created.
+The commands may fail the first execution with an error "No rule to make target 'data/01_preprocessed_data/*gz'" or "No rule to make target 'data/04_prediction_preprocessed/*gz'" this is because some intermediate files are being created, running the command again will correct the error because the intermediate files now has been created.
 
 ### model training and/or evaluation
 
@@ -79,7 +79,7 @@ make predict
 
 If the 'data/04_prediction_preprocessed/' folder is empty (as the first run) this command will fail but running it a second time will run correctly.
 
-If you are trying to make predictions on a file which don't have in common all the SNPs with the sample vcf file (which are common to all the training files) the predict command will exit with an error, to solve this you should reset the model and train it again as described in model reset section.
+If you are trying to make predictions on a file which *don't have* in common *all the SNPs* with the sample vcf file (which are *common to all the training files*) the predict command will exit with an error, to solve this you should reset the model and train it again as described in *model reset section*.
 
 ### Intermediate files reset
 

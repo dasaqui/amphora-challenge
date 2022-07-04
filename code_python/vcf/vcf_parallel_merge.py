@@ -21,13 +21,13 @@ def vcf_merge( input_list: list, output_file: str):
     while len( input_list) > 2:
         # Split the list in pairs and arguments for each worker
         input_list = [input_list[ i:min(i+2,len(input_list))] for i in range( 0, len(input_list), 2)]
-        arguments = [ (elements, path, counter>2) for elements in input_list]
+        arguments = [ (elements, path, counter>2, index) for index, elements in enumerate(input_list)]
 
         # call the workers
         input_list = pool.starmap( merge_worker, arguments)
 
         # tell the user about our partial progress
-        print( f"iteration number {counter} finished, pending to merge are {len(input_list)} files")
+        print( f"iteration number {counter} has finished, now pending to merge are {len(input_list)} files")
         counter += 1
     
     # final merge
@@ -41,7 +41,7 @@ def vcf_merge( input_list: list, output_file: str):
 # to reduce the memory used each worker receives two input paths
 # reads both paths, merge them in a new vcf file and saves it
 # returning the new path
-def merge_worker( vcf_list: list, output_path:str, rm_input = False, final_path = False):
+def merge_worker( vcf_list: list, output_path:str, rm_input = False, index = 1, final_path = False):
     # verify the number of elements in the list
     if len( vcf_list) == 1: return vcf_list[0]
     elif len( vcf_list) != 2: raise Exception( "Incorrect number of input elements")
@@ -68,6 +68,11 @@ def merge_worker( vcf_list: list, output_path:str, rm_input = False, final_path 
     if rm_input: 
         os.remove( vcf1_path)
         os.remove( vcf2_path)
+
+    # Show progress every 25 files
+    if not (index + 1) % 25: 
+        print( f"worker #{index + 1} has completed his work")
+        
     return path
 
 
