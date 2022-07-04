@@ -83,7 +83,7 @@ make predict
 
 If the 'data/04_prediction_preprocessed/' folder is empty (as the first run) this command will fail but running it a second time will run correctly.
 
-If you are trying to make predictions on a file which *don't have* in common *all the SNPs* with the sample vcf file (which are *common to all the training files*) the predict command will exit with an error, to solve this you should reset the model and train it again as described in *model reset section*.
+*Note:* If you are trying to make predictions on a file which *don't have* in common *all the SNPs* with the sample vcf file (which are *common to all the training files*) the predict command will exit with an error, to solve this problem you should copy the files to predict in the 'data/01_preprocessed_data/' folder, reset the model and train it again as described in *model reset section*. After this, you will be able to predict also the new data.
 
 ### Intermediate files reset
 
