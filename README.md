@@ -45,10 +45,10 @@ Most of the required packages are part of the standard Ubuntu installation excep
 apt install pip python3 file
 ```
 
-In terms of libraries required for python, they are matplotlib, numba, pandas, and sklearn. These libraries can be installed whit the command
+In terms of libraries required for python, they are matplotlib, pandas, and sklearn. These libraries can be installed whit the command
 
 ```bash
-pip install sklearn pandas matplotlib numba
+pip install sklearn pandas matplotlib
 ```
 
 After this point, you should have all the required packages to run this program.
