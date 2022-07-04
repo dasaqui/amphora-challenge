@@ -54,7 +54,7 @@ After cloning the git repository the code is almost ready to run. To change the 
 
 ### model training and/or evaluation
 
-In the beginning, the model is pre-trained but some intermediate should be generated, so this command will generate them and train the model only if the required files are absent.
+In the beginning, the model is pre-trained but some intermediate files should be generated, so this command will generate them and train the model only if the required files are absent.
 
 ```bash
 # run this in the root folder of this project
