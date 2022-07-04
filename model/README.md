@@ -40,7 +40,7 @@ The best result is obtained when the space is divided into eight groups, but mos
 
 In general terms, there are two pipelines as can be seen in the next image. The first pipeline is to train the model with the provided data stored on [data/00_data_ingestion/](data/00_data_ingestion/) and ends whit the creation of the model files and a sample vcf which stores the information of the SNPs used to predict data. The second pipeline requires the model files, the sample vcf, and the provided vcf files to predict which must be stored on [data/03_data_to_predict/](data/03_data_to_predict/), this pipeline ends by describing as an output text the prediction for each input file.
 
-![](model/reported/pipeline.png)
+![](reported/pipeline.png)
 
 In the previous image, we see in purple the input files which the user must provide to change the training or predictions, the file [data/coordination.txt](data/coordination.txt) contains the labels for the evaluation while the folders contain the data to train the model or the data to predict. The arrows indicate how the input data travels between folders and codes to the end of the pipeline at the bottom. Each folder represents how the information is stored in intermediate files (inside this folder) and the code files (inside file_'programming language'/ folder) show the file that starts the processing of the respective stage.
 
