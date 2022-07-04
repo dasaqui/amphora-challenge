@@ -107,4 +107,4 @@ This folder contains three groups of codes, so it can be divided into pipeline, 
     - test_code2.py created to debug the parallel merge process
 
 - makefile
-    -libraries.py check for each library needed to run the code and inform if one of them should be installed
+    - libraries.py check for each library needed to run the code and inform if one of them should be installed
