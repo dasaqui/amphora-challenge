@@ -2,11 +2,9 @@
 
 - [Clustering method:](#Clustering-method)
 
-- [File structure](#File-structure)
-
 - [Pipeline](#Pipeline)
 
-- [Code](#Code)
+- [File structure](#File-structure)
 
 # Clustering method
 
@@ -14,13 +12,13 @@ This is an overview of the clustering method used and the most relevant files in
 
 The data cleaning, sorting, and conversion are realized and described in [code_bash/preprocessing.bash](../code_bash/preprocessing.bash) and have an auxiliary code in [code_bash/mass_preprocessing.bash](../code_bash/mass_preprocessing.bash) which is used by the makefile and is the responsible for start the preprocessing of the input files which can be stored on [data/00_data_ingestion/](../data/00_data_ingestion/) to be used to train the model or [data/03_data_to_predict/](../data/03_data_to_predict/) to be used only for prediction of the continent. The complete [pipeline](#Pipeline) can be read on his section.
 
-The process to merge all the input data is realized by [code_python/files_merge.py](code_python/files_merge.py) which starts the merging process using all the available cores in parallel to merge the input vcf files by pairs until all the data has been merged into a final vcf. This output file preserves only the SNPs which are common for all the input data.
+The process to merge all the input data is realized by [code_python/files_merge.py](../code_python/files_merge.py) which starts the merging process using all the available cores in parallel to merge the input vcf files by pairs until all the data has been merged into a final vcf. This output file preserves only the SNPs which are common for all the input data.
 
-The following stages are realized by [code_python/continent_train_predict.py](code_python/continent_train_predict.py) and described in the next sub-sections. To predict only this process is realized by [code_python/continent_predict.py](code_python/continent_predict.py).
+The following stages are realized by [code_python/continent_train_predict.py](../code_python/continent_train_predict.py) and described in the next sub-sections. To predict only this process is realized by [code_python/continent_predict.py](../code_python/continent_predict.py).
 
 ## Data matrix
 
-At this point in the merged vcf, the first 9 columns store information to identify each data retrieved from the genetic code, and the rest of the columns represent the specific allele shown for a certain individual for each copy of the genetic code. For a specific individual, all this information can be seen as a vector with entries which are strings, this string can't be used directly but can be converted into new 2-dimensional data using a modified one-hot encoding described in [data_python/helpers/encoder.py](data_python/helpers/encoder.py).
+At this point in the merged vcf, the first 9 columns store information to identify each data retrieved from the genetic code, and the rest of the columns represent the specific allele shown for a certain individual for each copy of the genetic code. For a specific individual, all this information can be seen as a vector with entries which are strings, this string can't be used directly but can be converted into new 2-dimensional data using a modified one-hot encoding described in [code_python/helpers/encoder.py](../code_python/helpers/encoder.py).
 
 In this way, each individual can be represented by a vector of numbers between 0 and 1 which represents how strong is the presence of a specific allele for a specific position (0 if this allele is absent, 0.5 if there is only one copy, and 1 if there are two copies of this allele). The final data matrix represents with each column one of these individuals.
 
@@ -32,17 +30,17 @@ The resulting matrix has a very high dimension, so to reduce the clustering comp
 
 KMeans is a clustering technique by similarity, this machine learning method makes partitions on the space in an unsupervised way which means that we know the number of partitions but don't know the meaning of each partition, so we should decide the meaning by studying the final results.
 
-This process is realized by [data_python/helpers/kmeans.py](data_python/helpers/kmeans.py) dividing the space into seven groups which are compared with the labeled data to decide the meaning of each partition.
+This process is realized by [code_python/helpers/kmeans.py](../code_python/helpers/kmeans.py) dividing the space into seven groups which are compared with the labeled data to decide the meaning of each partition.
 
 The best result is obtained when the space is divided into eight groups, but most of the time this process generates an ethnical group not represented in the labeled data sometimes in Africa and sometimes in East Asia.
 
 # Pipeline
 
-In general terms, there are two pipelines as can be seen in the next image. The first pipeline is to train the model with the provided data stored on [data/00_data_ingestion/](data/00_data_ingestion/) and ends whit the creation of the model files and a sample vcf which stores the information of the SNPs used to predict data. The second pipeline requires the model files, the sample vcf, and the provided vcf files to predict which must be stored on [data/03_data_to_predict/](data/03_data_to_predict/), this pipeline ends by describing as an output text the prediction for each input file.
+In general terms, there are two pipelines as can be seen in the next image. The first pipeline is to train the model with the provided data stored on [data/00_data_ingestion/](../data/00_data_ingestion/) and ends whit the creation of the model files and a sample vcf which stores the information of the SNPs used to predict data. The second pipeline requires the model files, the sample vcf, and the provided vcf files to predict which must be stored on [data/03_data_to_predict/](../03_data_to_predict/), this pipeline ends by describing as an output text the prediction for each input file.
 
 ![](reported/pipeline.png)
 
-In the previous image, we see in purple the input files which the user must provide to change the training or predictions, the file [data/coordination.txt](data/coordination.txt) contains the labels for the evaluation while the folders contain the data to train the model or the data to predict. The arrows indicate how the input data travels between folders and codes to the end of the pipeline at the bottom. Each folder represents how the information is stored in intermediate files (inside this folder) and the code files (inside file_'programming language'/ folder) show the file that starts the processing of the respective stage.
+In the previous image, we see in purple the input files which the user must provide to change the training or predictions, the file [data/coordination.txt](../coordination.txt) contains the labels for the evaluation while the folders contain the data to train the model or the data to predict. The arrows indicate how the input data travels between folders and codes to the end of the pipeline at the bottom. Each folder represents how the information is stored in intermediate files (inside this folder) and the code files (inside file_'programming language'/ folder) show the file that starts the processing of the respective stage.
 
 # File structure
 
@@ -96,7 +94,7 @@ This folder contains three groups of codes, so it can be divided into pipeline, 
 
 - pipeline
 -- continent_predict.py  reads the 'predict' merged file and the trained model to predict the continent of each sample and show it in the display
--- continent_train_predict.py reads the 'train' merged file to train the model (if it has not been trained before) and evaluates the model performance showing it in a PyPlot graph and saving it in [model/out/](model/out/)
+-- continent_train_predict.py reads the 'train' merged file to train the model (if it has not been trained before) and evaluates the model performance showing it in a PyPlot graph and saving it in [model/out/](../model/out/)
 -- files_merge.py is in charge of the vcf merging process
 
 - modules
