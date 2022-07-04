@@ -29,6 +29,7 @@ sudo apt install make
 After this command has been installed all the remaining pre-requisites can be checked with the command
 
 ```bash
+# run this in the root folder of this project
 make test
 ```
 
@@ -51,6 +52,10 @@ After this point, you should have all the required packages to run this program.
 ## Usage
 
 After cloning the git repository the code is almost ready to run. To change the training data set you can add files to the 'data/00_data_ingestion/' folder, also to make new predictions you can add files in the 'data/00_data_to_predict/' folder.
+
+The first run can be slow because it is generating all the intermediate files.
+
+The commands may fail the first execution with an error "No rule to make target 'data/01_preprocessed_data/*gz'" this is because some intermediate files are being created, running the command again will correct the error because the intermediate files now has been created.
 
 ### model training and/or evaluation
 
