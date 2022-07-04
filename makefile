@@ -17,11 +17,14 @@ predict:
 
 # Command to remove output intermediate files
 clean:
-	rm model/preprocess_predict  || echo ok
-	rm model/preprocess  || echo ok
-	rm data/01*/*.gz || echo ok
-	rm data/04*/*.gz || echo ok
-	rm test || echo ok
+	@rm model/preprocess_predict  || echo task done
+	@rm model/preprocess  || echo task done
+	@rm data/01*/*.gz || echo task done
+	@rm data/04*/*.gz || echo task done
+	@rm test || echo task done
+
+model-reset: clean
+	@rm model/*.pkl && echo model erased || echo model erased
 
 # trainning pipeline
 evaluate: data/02_merged_data/merged_file.vcf.gz
