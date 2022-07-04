@@ -6,6 +6,10 @@ The input data consists of two file formats, the first is vcf files which is a s
 
 The final results consist of three tasks. The first is to merge all the input data into one table, the second is to create a clustering strategy and visualize the clusters, and the final task is to evaluate the clustering result.
 
+## Documentation
+
+A more complete documentation of the code can be read on [model/README.md file](model/README.md), which includes a description of the file structure of this project.
+
 ## Programming languages
 
 To solve this project we can use any programming language but is suggested to use python or R. Trying to use the best tools for each task I decided to use three programming languages which are Bash, awk, and python.
