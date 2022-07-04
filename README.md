@@ -50,16 +50,52 @@ After this point, you should have all the required packages to run this program.
 
 ## Usage
 
-To run the program you should copy the complete dataset given for this project in the 'data/00_data_ingestion' folder, this dataset doesn't need a particular file structure, only copy all the files in the folder without the use of sub-folders. Now you will be able to use the command
+After cloning the git repository the code is almost ready to run. To change the training data set you can add files to the 'data/00_data_ingestion/' folder, also to make new predictions you can add files in the 'data/00_data_to_predict/' folder.
+
+### model training and/or evaluation
+
+In the beginning, the model is pre-trained but some intermediate should be generated, so this command will generate them and train the model only if the required files are absent.
 
 ```bash
-make run
-# the first execution may fail
-make run
-# but only the first and never again
+# run this in the root folder of this project
+make train
 ```
 
-this command will take care of the complete workflow which is specified in [model/README.md file](model/README.md). The first run will end showing an error because at the beginning the folder 'data/01_preprocessed_data' was empty, but the next execution will run without problems showing the final classification at the end of the process.
+When the 'data/01_preprocessed_data/' folder is empty (as the first run) this command will fail but running it a second time will run correctly.
+
+### predict new data
+
+As the 'train' command, to predict data some intermediate files should be generated. To start a new prediction you should add the files to predict in the 'data/03_data_to_predict/' folder (if you erase some files remember to keep at least one csv and one vcf files) and run the next command
+
+```bash
+# run this in the root folder of this project
+make predict
+```
+
+If the 'data/04_prediction_preprocessed/' folder is empty (as the first run) this command will fail but running it a second time will run correctly.
+
+If you are trying to make predictions on a file which don't have in common all the SNPs with the sample vcf file (which are common to all the training files) the predict command will exit with an error, to solve this you should reset the model and train it again as described in model reset section.
+
+### Intermediate files reset
+
+If you have removed files from the input folders, the intermediate files should be removed to prevent data or execution errors, to do this you can run
+
+```bash
+# run this in the root folder of this project
+make clean
+```
+and after that, you can run the 'train' or the 'predict' commands as you need.
+
+### Model reset
+
+To remove the model files and force the code to make a new training you can use the following command
+
+```bash
+# run this in the root folder of this project
+make model-reset
+# to start a new training run:
+make train
+```
 
 ## Pipeline
 
