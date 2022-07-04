@@ -2,7 +2,6 @@
 
 # The methods described here corresponds to F1 score
 
-from numba import njit
 import my_constants as c
 
 def macro_F1_score( confusion_matrix):
