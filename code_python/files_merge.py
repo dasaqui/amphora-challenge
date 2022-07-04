@@ -1,6 +1,11 @@
 #!/usr/bin/env python
 
 # This code is to read all the vcf files and merge them in a new vcf
+#
+# this code uses vcf_parallel_merge to read in parallel by pairs all the
+# input vcf and merge them preserving only the common SNPs for each pair.
+# This process is repeated until all the files has been merged into a new
+# vcf file which stores all the common SNPs and the data for each sample.
 
 import sys
 from glob import glob
