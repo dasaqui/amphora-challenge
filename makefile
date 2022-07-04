@@ -7,7 +7,7 @@ foo:
 # Section for aliases
 clean_preprocess: clean preprocess
 
-run: evaluate
+train: evaluate
 
 merge: data/02_merged_data/merged_file.vcf.gz
 
@@ -55,6 +55,9 @@ data/04_prediction_preprocessed/00000000-sample.vcf.gz: data/02_merged_data/merg
 	bash code_bash/create_sample_vcf.bash
 
 # Commands for data prediction
+predict: data/05_merged_to_predict/merged_file.vcf.gz
+	@env python3 code_python/continent_predict.py
+
 data/05_merged_to_predict/merged_file.vcf.gz: data/04_prediction_preprocessed/00000000-sample.vcf.gz model/preprocess_predict data/04_prediction_preprocessed/*gz
 	@echo ""
 	@echo "   The merge process has begun, it can take some time to complete"
