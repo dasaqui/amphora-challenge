@@ -1,7 +1,9 @@
 #!/usr/bin/env python
 
 # This code it to read the sample and merged vcf first to verify if both files
-# has the same positions predicted and then predict the continent for each meassurement
+# has the same positions (SNPs) predicted and then predict the continent for each meassurement
+#
+# If the number of SNPs are not equal will fail with an error
 
 import pickle
 from time import time
