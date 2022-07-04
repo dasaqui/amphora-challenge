@@ -77,34 +77,34 @@ AWK is a programming language designed for text processing line by line in seque
 This folder contains code to control the command line using the programming language bash. The contained files and folders can be divided into three categories pipeline, auxiliary pipeline, and makefile.
 
 - pipeline
--- create_sample_vcf.bash is used to call cvf2sample.awk unzipping and zipping files as required to create the sample vcf
--- preprocessing.bash reads the input arguments to decide which auxiliary file should take care of the input to preprocess it
+    - create_sample_vcf.bash is used to call cvf2sample.awk unzipping and zipping files as required to create the sample vcf
+    - preprocessing.bash reads the input arguments to decide which auxiliary file should take care of the input to preprocess it
 
 - auxiliary pipeline
--- preprocess/ folder has to files to make the preprocessing of the input files according to the input format, this task involves creating a valid compressed and sorted vcf.
--- error_flag.bash used by other scripts to log that there was a problem while processing some file
+    - preprocess/ folder has to files to make the preprocessing of the input files according to the input format, this task involves creating a valid compressed and sorted vcf.
+    - error_flag.bash used by other scripts to log that there was a problem while processing some file
 
 - makefile
--- command_test.bash used by 'make' to check if a command ready to be used in the command line
--- mass_preprocess.bash is used by 'make' to start the preprocessing of the input files one by one using preprocessing.bash
+    - command_test.bash used by 'make' to check if a command ready to be used in the command line
+    - mass_preprocess.bash is used by 'make' to start the preprocessing of the input files one by one using preprocessing.bash
 
 ## code_python
 
 This folder contains three groups of codes, so it can be divided into pipeline, modules, auxiliary, and makefile
 
 - pipeline
--- continent_predict.py  reads the 'predict' merged file and the trained model to predict the continent of each sample and show it in the display
--- continent_train_predict.py reads the 'train' merged file to train the model (if it has not been trained before) and evaluates the model performance showing it in a PyPlot graph and saving it in [model/out/](../model/out/)
--- files_merge.py is in charge of the vcf merging process
+    - continent_predict.py  reads the 'predict' merged file and the trained model to predict the continent of each sample and show it in the display
+    - continent_train_predict.py reads the 'train' merged file to train the model (if it has not been trained before) and evaluates the model performance showing it in a PyPlot graph and saving it in [model/out/](../model/out/)
+    - files_merge.py is in charge of the vcf merging process
 
 - modules
--- helpers/ has several tasks in different files which involves encoding (one-hot encode), kmeans training and evaluation, data plotting, and F1 score evaluation. 
--- vcf/ involves tasks to read, write and merge vcf files using pandas to store the information as the internal python representation.
+    - helpers/ has several tasks in different files which involves encoding (one-hot encode), kmeans training and evaluation, data plotting, and F1 score evaluation. 
+    - vcf/ involves tasks to read, write and merge vcf files using pandas to store the information as the internal python representation.
 
 - auxiliary
--- my_constants.py stores some constants needed for different codes involved in the pipeline
--- test_code1.py created to debug the non-parallel merge process
--- test_code2.py created to debug the parallel merge process
+    - my_constants.py stores some constants needed for different codes involved in the pipeline
+    - test_code1.py created to debug the non-parallel merge process
+    - test_code2.py created to debug the parallel merge process
 
 - makefile
---libraries.py check for each library needed to run the code and inform if one of them should be installed
+    -libraries.py check for each library needed to run the code and inform if one of them should be installed
